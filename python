@@ -1,0 +1,37 @@
+#python
+#creator of passwords
+import random
+#arrays
+contraseña=[]
+leters=["a", "b", "c", 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+numbers=['0','1','2','3','4','5','6','7','8','9']
+#menu input
+menu=int(input(" Creator of passwords \nHow do you need your new password \n1)mix \n2)just characters \n3)just numbers \n4)Exit \n"))
+if 1==menu:
+    characters_numbers=int(input("how long do you need your password "))
+    for i in range (0,characters_numbers):
+        leter_aleatoria = random.choice(leters)
+        contraseña.append(leter_aleatoria)
+        num_aleatoria = random.choice(numbers)
+        contraseña.append(num_aleatoria)
+    print("This is your password")
+    print(''.join(contraseña))
+if 2==menu:
+    characters=int(input("how long do you need your password "))
+    for i in range (0,characters):
+        leter_aleatoria = random.choice(leters)
+        contraseña.append(leter_aleatoria)
+    print("This is your password")
+    print(''.join(contraseña))
+if 3==menu:
+    characters=int(input("how long do you need your password "))
+    for i in range (0,characters):
+        number_ran= random.choice(numbers)
+        contraseña.append(number_ran)
+    print("This is your password")
+    print(''.join(contraseña))
+if 4==menu:
+    print("thanks for your visit")
+    
+
+
