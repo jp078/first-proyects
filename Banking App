@@ -1,0 +1,190 @@
+#CC+
+#include <iostream>
+#include <string>
+using namespace std;
+
+class CuentaHabiente {
+private:
+  string name;
+  int edad;
+  int anosCH;
+
+public:
+  void setDatos() {
+    cout << "***DATOS DEL CUENTAHABIENTE***" << '\n';
+    cout << "Ingresa tu nombre: ";
+    getline(cin, name);
+    cout << "Ingresa tu edad: ";
+    cin >> edad;
+    cout << "Ingresa tus anios en el banco: ";
+    cin >> anosCH;
+  }
+
+  string getNombre() {
+    return name;
+  }
+
+  int getEdad() {
+    return edad;
+  }
+
+  int getAnosCH() {
+    return anosCH;
+  }
+
+};
+
+class DatoCuenta {
+private:
+  int NumCuenta;
+  int DineroTot;
+  bool EstadoCuenta;
+
+public:
+  void setCuenta() {
+    cout << "***DATOS DE LA CUENTA***" << '\n';
+    cout << "Ingresa el numero de cuenta: ";
+    cin >> NumCuenta;
+    while ((NumCuenta < 0) || (NumCuenta > 32000)) {
+        cout << "Ingrese un valor vÃ¡lido: ";
+        cin >> NumCuenta;
+    }
+
+    cout << "Ingresa la cantidad total de efectivo: ";
+    cin >> DineroTot;
+    while ((DineroTot < 0) || (DineroTot > 1000000)) {
+        cout << "Ingrese una cantidad menor: ";
+        cin >> DineroTot;
+    }
+
+    EstadoCuenta = (DineroTot >= 3000);
+
+    if (!EstadoCuenta) {
+        cout << "***Su cuenta no posee el capital minimo para registro***";
+        exit(0);
+    } else {
+        cout << "***Su cuenta esta activa***";
+        
+    }
+  }
+
+  void setActDineroTot(int Efectivo) {
+    DineroTot += Efectivo;
+  }
+
+  int getNumCuenta() {
+    return NumCuenta;
+  }
+
+  int getDineroTot() {
+    return DineroTot;
+  }
+
+  bool getEstadoCuenta() {
+    return EstadoCuenta;
+  }
+
+};
+
+class Transaccion {
+private:
+  int num;
+  int num2;
+  int numTrans;
+  string opdTrans;
+  string tipoTrans;
+  int cantTrans;
+
+public:
+  void setIteracion() {
+    cout << "Â¿Cuantas transacciones quieres hacer?: ";
+    cin >> num2;
+
+  }
+  void setTransDatos(int n) {
+    num = n;
+    cout << '\n' << "***TRANSACCION " << num << "***" <<'\n';
+    cout << "Ingresa el numero de transaccion: ";
+    cin >> numTrans;
+     while ((numTrans <= 1 ) || (numTrans > 100)) {
+        cout << "Ingrese un numero valido: ";
+        cin >> numTrans;
+    }
+
+    cout << "Ingresa el tipo de transaccion (Retiro/Deposito): ";
+    cin >> tipoTrans;
+    while ((tipoTrans != "Retiro") && (tipoTrans != "retiro") && (tipoTrans != "Deposito") && (tipoTrans != "deposito")) {
+        cout << "Ingrese una opcion valida: ";
+        cin >> tipoTrans;
+    }
+
+    cout << "Ingresa la operacion de transaccion: ";
+    cin.ignore();
+    getline(cin, opdTrans);
+    cout << "Ingresa la cantidad de la transaccion: ";
+    cin >> cantTrans;
+    while ((cantTrans < 0 ) || (cantTrans > 1000000)) {
+        cout << "Ingrese una cantidad vÃ¡lida: ";
+        cin >> cantTrans;
+    }
+
+  }
+
+  int getIteracion() {
+    return num2;
+  }
+
+  int getNumTrans() {
+    return numTrans;
+  }
+
+  string getTipoOperacion() {
+    return tipoTrans;
+  }
+
+  string getOperacionTrans() {
+    return opdTrans;
+  }
+
+  int getCantTrans() {
+    return cantTrans;
+  }
+
+};
+ 
+int main() {
+    CuentaHabiente cuentahabiente1;
+    cuentahabiente1.setDatos();
+
+    DatoCuenta cuenta1;
+    cuenta1.setCuenta();
+
+    int saldoInicial = cuenta1.getDineroTot();
+
+    Transaccion transaccion1;
+    transaccion1.setIteracion();
+
+    int numit = transaccion1.getIteracion();
+
+
+    if (cuenta1.getEstadoCuenta()) {
+        for (int i = 1; i <= numit; ++i) {
+            transaccion1.setTransDatos(i);
+
+            if ((transaccion1.getTipoOperacion() == "deposito") || (transaccion1.getTipoOperacion() == "Deposito")) {
+                int Efectivo = transaccion1.getCantTrans();
+                cuenta1.setActDineroTot(Efectivo);
+            } else {
+                int Efectivo = -(transaccion1.getCantTrans());
+                cuenta1.setActDineroTot(Efectivo);
+            }
+
+        }
+        cout << "*** EL BALANCE DE SU CUENTA ES EL SIGUIENTE ***\n";
+        cout << "Cuenta: " << cuenta1.getNumCuenta() << '\n';
+        cout << "Saldo anterior: " << saldoInicial << '\n';
+        cout << "Saldo actual: " << cuenta1.getDineroTot() << '\n';
+    }
+  
+    return 0;
+}
